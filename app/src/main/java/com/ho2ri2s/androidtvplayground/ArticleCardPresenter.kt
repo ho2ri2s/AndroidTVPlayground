@@ -1,4 +1,4 @@
-package com.example.androidtvplayground
+package com.ho2ri2s.androidtvplayground
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
