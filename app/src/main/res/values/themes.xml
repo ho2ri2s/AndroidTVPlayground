@@ -1,0 +1,4 @@
+<resources>
+
+  <style name="Theme.AndroidTVPlayGround" parent="@style/Theme.Leanback" />
+</resources>
