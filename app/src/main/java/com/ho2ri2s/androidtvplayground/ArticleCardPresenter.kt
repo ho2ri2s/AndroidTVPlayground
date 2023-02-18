@@ -1,27 +1,38 @@
 package com.ho2ri2s.androidtvplayground
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.leanback.widget.Presenter
+import androidx.leanback.widget.RowPresenter
 import com.ho2ri2s.androidtvplayground.databinding.LayoutArticleCardBinding
 
-class ArticleCardPresenter : Presenter() {
+class ArticleCardPresenter : RowPresenter() {
 
-  override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
+  override fun createRowViewHolder(parent: ViewGroup): RowPresenter.ViewHolder {
     val layoutInflater = LayoutInflater.from(parent.context)
-    val binding = LayoutArticleCardBinding.inflate(layoutInflater, parent, false)
+    val binding = LayoutArticleCardBinding.bind(
+      layoutInflater.inflate(
+        R.layout.layout_article_card,
+        parent,
+        false
+      )
+    )
 
     return ViewHolder(binding)
   }
 
-  override fun onBindViewHolder(viewHolder: Presenter.ViewHolder?, item: Any?) {
+  override fun onBindRowViewHolder(viewHolder: RowPresenter.ViewHolder, item: Any?) {
     val binding = (viewHolder as ViewHolder).binding
-    binding.title.text = "タイトルだよ"
+    val title = item as String
+    viewHolder.title = title
+    binding.title.text = title
   }
 
-  override fun onUnbindViewHolder(viewHolder: Presenter.ViewHolder?) = Unit
+  override fun onUnbindRowViewHolder(viewHolder: RowPresenter.ViewHolder) = Unit
 
   class ViewHolder(
     val binding: LayoutArticleCardBinding,
-  ) : Presenter.ViewHolder(binding.root)
+  ) : RowPresenter.ViewHolder(binding.root) {
+    var title: String? = null
+  }
 }
