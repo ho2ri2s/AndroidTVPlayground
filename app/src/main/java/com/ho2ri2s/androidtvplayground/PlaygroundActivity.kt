@@ -4,7 +4,9 @@ import android.os.Bundle
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.commit
 import com.ho2ri2s.androidtvplayground.databinding.ActivityPlaygroundBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class PlaygroundActivity : FragmentActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {

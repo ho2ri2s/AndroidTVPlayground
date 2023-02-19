@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.leanback.widget.Presenter
 import com.ho2ri2s.androidtvplayground.databinding.LayoutArticleCardBinding
+import com.ho2ri2s.androidtvplayground.model.Article
 
 class ArticleCardPresenter : Presenter() {
 
@@ -22,9 +23,9 @@ class ArticleCardPresenter : Presenter() {
 
   override fun onBindViewHolder(viewHolder: Presenter.ViewHolder, item: Any?) {
     val binding = (viewHolder as ViewHolder).binding
-    val title = item as String
-    viewHolder.title = title
-    binding.title.text = title
+    val article = item as Article
+    viewHolder.article = article
+    binding.title.text = article.title
   }
 
   override fun onUnbindViewHolder(viewHolder: Presenter.ViewHolder) = Unit
@@ -32,6 +33,6 @@ class ArticleCardPresenter : Presenter() {
   class ViewHolder(
     val binding: LayoutArticleCardBinding,
   ) : Presenter.ViewHolder(binding.root) {
-    var title: String? = null
+    var article: Article? = null
   }
 }

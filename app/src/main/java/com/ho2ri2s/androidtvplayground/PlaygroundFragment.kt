@@ -6,36 +6,32 @@ import androidx.leanback.app.RowsSupportFragment
 import androidx.leanback.widget.ArrayObjectAdapter
 import androidx.leanback.widget.DiffCallback
 import androidx.leanback.widget.FocusHighlight
-import androidx.leanback.widget.HeaderItem
 import androidx.leanback.widget.ListRow
 import androidx.leanback.widget.ListRowPresenter
+import androidx.lifecycle.lifecycleScope
+import com.ho2ri2s.androidtvplayground.data.QiitaApi
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class PlaygroundFragment : RowsSupportFragment() {
+
+  @Inject lateinit var api: QiitaApi
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
     val rowsAdapter = ArrayObjectAdapter(ListRowPresenter(FocusHighlight.ZOOM_FACTOR_MEDIUM, true))
     adapter = rowsAdapter
-    val list = listOf(
-      "hogehoge",
-      "hogge",
-      "hohhoohge",
-      "hohhoohgee",
-      "hogehogeeeee",
-      "hoggegg",
-      "hohhoohgeggga",
-      "hohhoohgaega",
-    )
-    val listRows = listOf(
-      ListRow(
-        HeaderItem("ヘッダー"),
-        ArrayObjectAdapter(ArticleCardPresenter()).apply { setItems(list, null) }),
-      ListRow(
-        HeaderItem("ヘッダー"),
-        ArrayObjectAdapter(ArticleCardPresenter()).apply { setItems(list, null) })
-    )
 
-    rowsAdapter.setItems(listRows, ArticleDiffCallback())
+    val articleCardAdapter = ArrayObjectAdapter(ArticleCardPresenter())
+    val listRow = ListRow(articleCardAdapter)
+    rowsAdapter.add(listRow)
+
+    lifecycleScope.launch {
+      val articles = api.getArticles(user = "miriwo")
+      articleCardAdapter.setItems(articles, ArticleDiffCallback())
+    }
   }
 
   private class ArticleDiffCallback : DiffCallback<String>() {

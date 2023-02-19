@@ -12,6 +12,7 @@
 
   <uses-permission android:name="android.permission.INTERNET" />
   <application
+    android:name=".PlaygroundApp"
     android:allowBackup="true"
     android:banner="@drawable/app_icon_your_company"
     android:icon="@mipmap/ic_launcher"
