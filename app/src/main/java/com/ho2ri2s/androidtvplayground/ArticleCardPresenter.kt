@@ -3,6 +3,8 @@ package com.ho2ri2s.androidtvplayground
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.leanback.widget.Presenter
+import coil.load
+import coil.transform.CircleCropTransformation
 import com.ho2ri2s.androidtvplayground.databinding.LayoutArticleCardBinding
 import com.ho2ri2s.androidtvplayground.model.Article
 
@@ -26,6 +28,10 @@ class ArticleCardPresenter : Presenter() {
     val article = item as Article
     viewHolder.article = article
     binding.title.text = article.title
+    binding.thumbnail
+      .load(article.user.profileImageUrl) {
+        transformations(CircleCropTransformation())
+      }
   }
 
   override fun onUnbindViewHolder(viewHolder: Presenter.ViewHolder) = Unit

@@ -10,14 +10,29 @@
   >
 
   <ImageView
-    android:id="@+id/thumbnail"
+    android:id="@+id/logo"
     android:layout_width="0dp"
     android:layout_height="180dp"
-    android:background="@drawable/dummy_image"
-    android:contentDescription="@string/thumbnail"
+    android:background="@drawable/qiita_logo"
+    android:contentDescription="@string/header"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
+    />
+
+  <ImageView
+    android:id="@+id/thumbnail"
+    android:layout_width="48dp"
+    android:layout_height="48dp"
+    android:layout_marginBottom="8dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="8dp"
+    android:background="@drawable/rounded_image"
+    android:contentDescription="@string/thumbnail"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/logo"
+    tools:background="@drawable/qiita_logo"
     />
 
   <TextView
@@ -30,8 +45,8 @@
     android:maxLines="2"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@id/thumbnail"
+    app:layout_constraintStart_toEndOf="@id/thumbnail"
+    app:layout_constraintTop_toBottomOf="@id/logo"
     tools:text="タイトルタイトルタイトルタイトルタイトルタイトルタイトルタイトルタイトルタイトルタイトルタイトルタイトルタイトルタイトルタイトル"
     />
 

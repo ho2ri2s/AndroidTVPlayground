@@ -9,7 +9,6 @@ import com.ho2ri2s.androidtvplayground.data.QiitaApi
 import com.ho2ri2s.androidtvplayground.model.UserId
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
-import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -17,8 +16,7 @@ class PlaygroundViewModel @Inject constructor(
   private val qiitaApi: QiitaApi,
 ) : ViewModel() {
   val articlesPageDataStream = Pager(PagingConfig(pageSize = 10)) {
-    QiitaPagingSource(qiitaApi = qiitaApi, userId = UserId("miriwo"))
+    QiitaPagingSource(qiitaApi = qiitaApi, userId = UserId("takahirom"))
   }.flow.catch {
-    Timber.d("catch = $this")
   }.cachedIn(viewModelScope)
 }

@@ -39,7 +39,6 @@ class PlaygroundFragment : RowsSupportFragment() {
 
     lifecycleScope.launch {
       viewModel.articlesPageDataStream.collectLatest { data ->
-        Timber.d("data = $data")
         articleCardAdapter.submitData(data)
       }
     }
