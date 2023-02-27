@@ -10,7 +10,6 @@ import androidx.leanback.widget.FocusHighlight
 import androidx.leanback.widget.HeaderItem
 import androidx.leanback.widget.ListRow
 import androidx.leanback.widget.ListRowPresenter
-import androidx.leanback.widget.Row
 import androidx.leanback.widget.SparseArrayObjectAdapter
 import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
@@ -29,39 +28,31 @@ class PlaygroundFragment : RowsSupportFragment() {
   private val viewModel: PlaygroundViewModel by viewModels()
   private lateinit var rowsAdapter: SparseArrayObjectAdapter
   private lateinit var articleListRowPresenter: ListRowPresenter
-  private lateinit var qiitaHeaderPresenter: QiitaHeaderRowPresenter
 
   override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
     super.onViewCreated(view, savedInstanceState)
-    articleListRowPresenter = ListRowPresenter(FocusHighlight.ZOOM_FACTOR_MEDIUM, true)
-    qiitaHeaderPresenter = QiitaHeaderRowPresenter()
+    articleListRowPresenter = ListRowPresenter(FocusHighlight.ZOOM_FACTOR_SMALL, true).apply {
+      headerPresenter = QiitaHeaderRowPresenter()
+    }
     val classPresenterSelector = ClassPresenterSelector().apply {
-      addClassPresenter(Row::class.java, qiitaHeaderPresenter)
       addClassPresenter(ListRow::class.java, articleListRowPresenter)
     }
     rowsAdapter = SparseArrayObjectAdapter(classPresenterSelector)
     adapter = rowsAdapter
 
-    setHeader("takahirom")
-
     lifecycleScope.launch {
       viewModel.articlesPageDataStream.collectLatest { data ->
-        setArticles(data)
+        setArticles(data, "takahirom")
       }
     }
   }
 
-  private fun setHeader(userName: String) {
-    val row = Row(HeaderItem(userName))
-    rowsAdapter.set(ROW_TYPE_HEADER, row)
-  }
-
-  private suspend fun setArticles(articles: PagingData<Article>) {
+  private suspend fun setArticles(articles: PagingData<Article>, userName: String) {
     val articleCardAdapter = PagingDataAdapter(
       presenter = ArticleCardPresenter(),
       diffCallback = ArticleDiffCallback()
     )
-    val listRow = ListRow(articleCardAdapter)
+    val listRow = ListRow(HeaderItem(userName), articleCardAdapter)
     rowsAdapter.set(ROW_TYPE_ARTICLE_LIST, listRow)
 
     articleCardAdapter.submitData(articles)
