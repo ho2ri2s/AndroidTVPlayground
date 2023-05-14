@@ -52,7 +52,7 @@ class PlaygroundFragment : RowsSupportFragment() {
       presenter = ArticleCardPresenter(),
       diffCallback = ArticleDiffCallback()
     )
-    val listRow = ListRow(HeaderItem(userName), articleCardAdapter)
+    val listRow = ListRow(null, articleCardAdapter)
     rowsAdapter.set(ROW_TYPE_ARTICLE_LIST, listRow)
 
     articleCardAdapter.submitData(articles)
@@ -69,7 +69,6 @@ class PlaygroundFragment : RowsSupportFragment() {
   }
 
   companion object {
-    private const val ROW_TYPE_HEADER = 0
-    private const val ROW_TYPE_ARTICLE_LIST = 1
+    private const val ROW_TYPE_ARTICLE_LIST = 0
   }
 }

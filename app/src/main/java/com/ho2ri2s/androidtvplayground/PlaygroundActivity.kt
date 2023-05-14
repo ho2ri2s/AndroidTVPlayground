@@ -1,23 +1,21 @@
 package com.ho2ri2s.androidtvplayground
 
 import android.os.Bundle
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.commit
+import androidx.appcompat.app.AppCompatActivity
 import com.ho2ri2s.androidtvplayground.databinding.ActivityPlaygroundBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class PlaygroundActivity : FragmentActivity() {
+class PlaygroundActivity : AppCompatActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_playground)
     val binding = ActivityPlaygroundBinding.inflate(layoutInflater)
-    if (savedInstanceState == null) {
-      supportFragmentManager.commit {
-        setReorderingAllowed(true)
-        add(binding.fragmentContainer.id, PlaygroundFragment::class.java, null)
-      }
-    }
+    setContentView(binding.root)
+    val adapter = TvNavigationPagerAdapter(this, supportFragmentManager)
+    binding.viewPager.adapter = adapter
+    binding.tabLayout.setupWithViewPager(binding.viewPager)
+
+    binding.tabLayout.getTabAt(0)?.view?.requestFocus()
   }
 }

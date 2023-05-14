@@ -19,4 +19,8 @@
   <!-- Error messages -->
   <string name="error_fragment_message">An error occurred</string>
   <string name="dismiss_error">Dismiss</string>
+
+  <!-- Navigation -->
+  <string name="navigation_playground">Playground</string>
+  <string name="navigation_tv_compose">TV Compose</string>
 </resources>
