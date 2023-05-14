@@ -23,4 +23,6 @@
   <!-- Navigation -->
   <string name="navigation_playground">Playground</string>
   <string name="navigation_tv_compose">TV Compose</string>
+  <string name="navigation_compose_home">Home</string>
+  <string name="navigation_compose_tv">TV</string>
 </resources>
